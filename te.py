@@ -23,7 +23,7 @@ img = load_image() # вызываем функцию
 result = st.button('Распознать изображение')# вставляем кнопку
 st.write('**Успешно3:**')
 if result: #после нажатия на которую будет запущен алгоритм...
-    st.write('**Результаты распознавания:**')
-    generator = pipeline('text-generation', model='gpt2')
-    set_seed(42)
-    generator("Russia bike", max_length=10, num_return_sequences=5)
+st.write('**Результаты распознавания:**')
+generator = pipeline('text-generation', model='gpt2')
+set_seed(42)
+generator("Russia bike", max_length=10, num_return_sequences=5)
