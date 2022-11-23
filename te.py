@@ -19,11 +19,12 @@ def load_image():
     else:
         return None
 st.title('Классификация изображений')
-#img = load_image() # вызываем функцию
-mod = load_model()
+
 
 result = st.button('Распознать изображение')# вставляем кнопку
 st.write('**Успешно3:**')
 if result: #после нажатия на которую будет запущен алгоритм...
     st.write('**Результаты распознавания:**')
-    mod
+    generator = pipeline('text-generation', model='gpt2')
+    set_seed(42)
+    generator("Russia bike", max_length=10, num_return_sequences=5)
