@@ -2,3 +2,4 @@ streamlit
 transformers
 tensorflow-cpu
 torch
+requests
