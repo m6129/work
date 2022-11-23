@@ -3,9 +3,11 @@ import streamlit as st # # обязательные библиотеки для 
 from PIL import Image # библиотека для загрузки изображений
 from transformers import pipeline, set_seed
 
-#@st.cache(allow_output_mutation=True)
-#def load_model():
-    #return image-to-text
+@st.cache(allow_output_mutation=True)
+def load_model():
+    generator = pipeline('text-generation', model='gpt2')
+    set_seed(42)
+    return generator("Russia bike", max_length=10, num_return_sequences=5)
 
 
 def load_image():
@@ -17,13 +19,11 @@ def load_image():
     else:
         return None
 st.title('Классификация изображений')
-img = load_image() # вызываем функцию
-#mod = load_model()
+#img = load_image() # вызываем функцию
+mod = load_model()
 
 result = st.button('Распознать изображение')# вставляем кнопку
 st.write('**Успешно3:**')
 if result: #после нажатия на которую будет запущен алгоритм...
-st.write('**Результаты распознавания:**')
-generator = pipeline('text-generation', model='gpt2')
-set_seed(42)
-generator("Russia bike", max_length=10, num_return_sequences=5)
+    st.write('**Результаты распознавания:**')
+    mod
