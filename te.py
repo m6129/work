@@ -24,6 +24,6 @@ result = st.button('Распознать изображение')# вставл�
 st.write('**Успешно3:**')
 if result: #после нажатия на которую будет запущен алгоритм...
     st.write('**Результаты распознавания:**')
-   generator = pipeline('text-generation', model='gpt2')
-   set_seed(42)
-   generator("Hello, I'm a language model,", max_length=30, num_return_sequences=5)
+    generator = pipeline('text-generation', model='gpt2')
+    set_seed(42)
+    generator("Hello, I'm a language model,", max_length=30, num_return_sequences=5)
