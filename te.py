@@ -1,8 +1,7 @@
 import io # обязательные библиотеки для stremlit
 import streamlit as st # # обязательные библиотеки для stremlit
 from PIL import Image # библиотека для загрузки изображений
-#import torch
-from transformers import AutoModelForQuestionAnswering, AutoTokenizer, pipeline
+from transformers import pipeline, set_seed
 
 #@st.cache(allow_output_mutation=True)
 #def load_model():
@@ -25,13 +24,6 @@ result = st.button('Распознать изображение')# вставл�
 st.write('**Успешно3:**')
 if result: #после нажатия на которую будет запущен алгоритм...
     st.write('**Результаты распознавания:**')
-    model_name = "deepset/roberta-base-squad2"
-    # a) Get predictions
-    nlp = pipeline('question-answering', model=model_name, tokenizer=model_name)
-    QA_input = {'question': 'Why is model conversion important?',
-    'context': 'The option to convert models between FARM and transformers gives freedom to the user and let people easily switch between frameworks.'
-}
-    res = nlp(QA_input)
-    # b) Load model & tokenizer
-    model = AutoModelForQuestionAnswering.from_pretrained(model_name)
-    tokenizer = AutoTokenizer.from_pretrained(model_name)
+   generator = pipeline('text-generation', model='gpt2')
+   set_seed(42)
+   generator("Hello, I'm a language model,", max_length=30, num_return_sequences=5)
