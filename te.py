@@ -1,7 +1,7 @@
 import io # обязательные библиотеки для stremlit
 import streamlit as st # # обязательные библиотеки для stremlit
 from PIL import Image # библиотека для загрузки изображений
-from transformers import GPT2Tokenizer, GPT2Model
+from transformers import pipeline, set_seed
 
 #@st.cache(allow_output_mutation=True)
 #def load_model():
@@ -24,7 +24,6 @@ result = st.button('Распознать изображение')# вставл�
 st.write('**Успешно3:**')
 if result: #после нажатия на которую будет запущен алгоритм...
     st.write('**Результаты распознавания:**')
-    from transformers import pipeline, set_seed
     generator = pipeline('text-generation', model='gpt2')
     set_seed(42)
     generator("Russia bike", max_length=10, num_return_sequences=5)
