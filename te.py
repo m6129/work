@@ -2,8 +2,9 @@ import io # обязательные библиотеки для stremlit
 import streamlit as st # # обязательные библиотеки для stremlit
 from PIL import Image # библиотека для загрузки изображений
 #import torch
-from transformers import VisionEncoderDecoderModel, ViTFeatureExtractor, AutoTokenizer
+from transformers import SegformerFeatureExtractor, SegformerForSemanticSegmentation
 from transformers import pipeline
+import requests
 
 #@st.cache(allow_output_mutation=True)
 #def load_model():
@@ -26,5 +27,10 @@ result = st.button('Распознать изображение')# вставл�
 st.write('**Успешно3:**')
 if result: #после нажатия на которую будет запущен алгоритм...
     st.write('**Результаты распознавания:**')
-    #image_to_text(img) #стоит убрать решётку и будет выдавать ошибку(пробовал по разному запускать модель и через функцию - итог один)
-    st.title('Мне кажется модель https://huggingface.co/nlpconnect/vit-gpt2-image-captioning не работает со стремлит')
+    feature_extractor = SegformerFeatureExtractor.from_pretrained("nvidia/segformer-b5-finetuned-ade-512-512")
+    model = SegformerForSemanticSegmentation.from_pretrained("nvidia/segformer-b5-finetuned-ade-512-512")
+    url = "http://images.cocodataset.org/val2017/000000039769.jpg"
+    image = Image.open(requests.get(url, stream=True).raw)
+    inputs = feature_extractor(images=image, return_tensors="pt")
+    outputs = model(**inputs)
+    logits = outputs.logits  # shape (batch_size, num_labels, height/4, width/4)
